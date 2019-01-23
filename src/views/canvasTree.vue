@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import Tree from './tree'
+// import Tree from './tree'
+import webgl from './webgl_study'
 export default {
   data () {
     return {
@@ -19,9 +20,6 @@ export default {
         timer: null,
         speed: 40,
         i: 0
-      },
-      d: {
-        tree: []
       }
     }
   },
@@ -40,45 +38,63 @@ export default {
       canvas.width = this.w
       canvas.height = this.h
 
-      let ctx = canvas.getContext('2d')
-      this.ctx = ctx
-      ctx.fillStyle = '#000000'
-      ctx.fillRect(0, 0, this.w, this.h)
+      // let ctx = canvas.getContext('2d')
+      // this.ctx = ctx
+      // ctx.fillStyle = '#000000'
+      // ctx.fillRect(0, 0, this.w, this.h)
 
-      this.d.tree.push(new Tree({
-        ctx: this.ctx,
-        speed: 20,
-        x: this.w / 2,
-        y: this.h,
-        num: 5,
-        size: 30,
-        fork: 20,
-        forkNum: 10,
-        flower: true,
-        color: ['rgba( 255, 255, 255, 0.3)']
-      }))
+      // this.addTree()
+      webgl(canvas)
+    },
+    addTree: function () {
+      // let tree = new Tree({
+      //   ctx: this.ctx,
+      //   speed: 20,
+      //   x: this.w / 2,
+      //   y: this.h,
+      //   num: 5,
+      //   size: 30,
+      //   fork: 20,
+      //   forkNum: 10,
+      //   flower: true,
+      //   color: ['rgba( 255, 255, 255, 0.3)']
+      // })
+      // tree.grow()
 
-      this.d.tree.push(new Tree({
-        ctx: this.ctx,
-        speed: 10,
-        x: this.w * 0.8,
-        y: this.h,
-        num: 2,
-        size: 15,
-        fork: 12,
-        forkNum: 10
-      }))
+      // this.d.tree.push(new Tree({
+      //   ctx: this.ctx,
+      //   speed: 10,
+      //   x: this.w * 0.8,
+      //   y: this.h,
+      //   num: 2,
+      //   size: 15,
+      //   fork: 12,
+      //   forkNum: 10
+      // }))
 
-      this.d.tree.push(new Tree({
-        ctx: this.ctx,
-        speed: 10,
-        x: this.w * 0.2,
-        y: this.h,
-        num: 2,
-        size: 10,
-        fork: 8,
-        forkNum: 10
-      }))
+      // this.d.tree.push(new Tree({
+      //   ctx: this.ctx,
+      //   speed: 10,
+      //   x: this.w * 0.2,
+      //   y: this.h,
+      //   num: 2,
+      //   size: 10,
+      //   fork: 8,
+      //   forkNum: 10
+      // }))
+      // let tree1 = new Tree({
+      //   ctx: this.ctx,
+      //   speed: 0,
+      //   x: this.w * 0.1,
+      //   y: this.h,
+      //   num: 1,
+      //   size: 2,
+      //   fork: 3,
+      //   forkNum: 8,
+      //   color: ['rgba( 33, 33, 200, 0.2)']
+      // })
+      // tree1.grow()
+      // tree1.create()
     }
   }
 }

@@ -10,7 +10,6 @@ class Tree {
     this.options = Object.assign({}, this.options, options)
     if (!this.options.ctx) return false
     this.options.ctx.globalCompositeOperation = 'lighter'
-    this.initTree()
   }
   options = {
     ctx: null,
@@ -29,9 +28,20 @@ class Tree {
     timer: null,
     i: 0
   }
-  initTree () {
+  treeObj = {
+    canvas: null,
+    h: 3000,
+    w: 3000,
+    x: 1500,
+    y: 3000
+  }
+  grow = position => {
     let { tree } = this
-    let { x, y, speed, num, size, fork, forkNum, flower, color } = this.options
+    let { ctx, x, y, speed, num, size, fork, forkNum, flower, color } = this.options
+    if (position) {
+      x = position.x || x
+      y = position.y || y
+    }
     let branches = []
     let rc = () => Math.ceil(Math.random() * 255)
     for (let i = 0; i < num; i++) {
@@ -48,20 +58,18 @@ class Tree {
     clearInterval(tree.timer)
     tree.timer = setInterval(() => {
       if (tree.i > fork) {
-        this.addBranch()
+        this.addBranch(tree.branches)
         tree.i = 0
       }
-      this.grow()
+      this.__grow__(ctx, tree.branches)
       tree.i++
-      if (this.tree.branches.length > forkNum) {
+      if (tree.branches.length > forkNum) {
         clearInterval(tree.timer)
-        if (flower) this.flower(100)
+        if (flower) this.flower(ctx, tree.branches, 100)
       }
     }, speed)
   }
-  addBranch () {
-    let { tree } = this
-    let { branches } = tree
+  addBranch (branches) {
     let len = branches.length
     let newBranches = []
     branches[len - 1].map(v => {
@@ -69,12 +77,9 @@ class Tree {
       newBranches.push(nv)
       newBranches.push(nv)
     })
-    tree.branches.push(newBranches)
+    branches.push(newBranches)
   }
-  grow () {
-    let { tree, options } = this
-    let { branches } = tree
-    let { ctx } = options
+  __grow__ (ctx, branches) {
     let len = branches.length
     let b = branches[len - 1]
     b.map((v, i) => {
@@ -92,12 +97,9 @@ class Tree {
       b[i].d = d
     })
   }
-  flower (i) {
+  flower (ctx, branches, i, t = 50) {
     if (i < 0) return
     setTimeout(() => {
-      let { options, tree } = this
-      let { branches } = tree
-      let { ctx } = options
       let len = branches.length
       let b = branches[len - 1]
       let bl = b.length
@@ -112,9 +114,52 @@ class Tree {
         ctx.fill()
       }
       i--
-      this.flower(i)
-    }, 50)
+      this.flower(ctx, branches, i)
+    }, t)
   }
+  create = options => {
+    this.initialize(options)
+    let { canvas, h, w, x, y } = this.treeObj
+    canvas = document.createElement('canvas')
+    canvas.width = w
+    canvas.height = h
+
+    let ctx = canvas.getContext('2d')
+
+    let { num, size, fork, forkNum, flower, color } = this.options
+
+    let branche = []
+    let rc = () => Math.ceil(Math.random() * 255)
+    for (let i = 0; i < num; i++) {
+      let c = color[i] ? color[i] : 'rgba( ' + rc() + ', ' + rc() + ', ' + rc() + ', 0.3)'
+      branche.push({
+        r: size,
+        x,
+        y,
+        d: 90,
+        c
+      })
+    }
+    let branches = [branche]
+    let timer = null
+    let i = 0
+    timer = setInterval(() => {
+      if (i > fork) {
+        this.addBranch(branches)
+        i = 0
+      }
+      this.__grow__(ctx, branches)
+      i++
+      if (branches.length > forkNum) {
+        clearInterval(timer)
+        if (flower) this.flower(ctx, branches, 100)
+      }
+    }, 0)
+  }
+  // addTree = ({ x = 100, y = 100, ctx }) => {
+  //   let pattern = ctx.createPattern(newCanvas, 'repeat')
+  //   ctx.fillStyle = pattern || style.fillStyle
+  // }
 }
 
 export default Tree
