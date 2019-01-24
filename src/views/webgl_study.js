@@ -2,6 +2,7 @@
 /**
  * webgl kkbd s
  */
+
 let init = function(canvas) {
   let VSHADER_SOURCE =
     'attribute vec4 coordinates;' +

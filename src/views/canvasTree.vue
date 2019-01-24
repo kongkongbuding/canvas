@@ -7,7 +7,8 @@
 
 <script>
 // import Tree from './tree'
-import webgl from './webgl_study'
+// import webgl from './webgl_study'
+import three from './three'
 export default {
   data () {
     return {
@@ -44,7 +45,8 @@ export default {
       // ctx.fillRect(0, 0, this.w, this.h)
 
       // this.addTree()
-      webgl(canvas)
+      // webgl(canvas)
+      three()
     },
     addTree: function () {
       // let tree = new Tree({
@@ -100,8 +102,8 @@ export default {
 }
 </script>
 
-<style type="text/less" lang="less" scoped>
-.canvasBox {
+<style type="text/less" lang="less" >
+canvas {
   height: 100%;
   width: 100%;
   margin: 0;

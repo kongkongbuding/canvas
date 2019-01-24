@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "import-three-examples": "^2.1.6",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.2",
+    "three": "^0.100.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
