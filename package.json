@@ -14,6 +14,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "import-three-examples": "^2.1.6",
+    "iso-image": "0.0.4",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mockjs": "^1.0.1-beta3",
